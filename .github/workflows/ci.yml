@@ -16,13 +16,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      # Optional but nice: restore local dotnet tools (for dotnet-format)
-      - name: Restore dotnet tools
-        run: |
-          dotnet new tool-manifest --force
-          dotnet tool install dotnet-format --version 8.*
-          dotnet tool restore
-
       - name: Restore
         run: dotnet restore
 
