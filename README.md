@@ -3,7 +3,7 @@
 > Roll out features safely with percentage rollouts, SLO-guarded canaries, and automatic rollback.
 > Tech: .NET 8 (ASP.NET Core), Postgres, Docker, Terraform, OpenTelemetry (coming).
 
-### [Portfolio](https://landers99.github.io/)
+### [Portfolio](https://landers99.github.io/) | [Work Sample](https://github.com/Landers99/canary-platform/blob/main/work-samples-v0.zip)
 
 <!-- Badges (update the URLs to your repo/actions) -->
 
