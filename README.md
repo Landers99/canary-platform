@@ -63,6 +63,12 @@ canary-platform/
 
 ---
 
+## Architecture
+
+* [ADR](https://github.com/Landers99/canary-platform/blob/main/docs/adr/ADR-000-feature-flags-auto-canary.md)
+
+---
+
 ## Configuration (env vars)
 
 * `ConnectionStrings__Db`: `Host=db;Port=5432;Database=canary;Username=canary;Password=canary`
@@ -82,17 +88,6 @@ terraform validate
 # Optional with creds:
 terraform plan -var="db_username=canary" -var="db_password=canary1234"
 ```
-
----
-
-## Day-1 Acceptance Checklist
-
-* [x] **Repo public** with solution, compose, and minimal endpoints.
-* [x] `docker compose up` succeeds; `GET /healthz` returns `200 {"status":"ok"}`.
-* [x] `dotnet test` green (health test).
-* [ ] **CI** (Actions) runs build/test/format on PR & push.
-* [ ] **Terraform** `validate` (and `plan` if creds) succeeds.
-* [ ] README quickstart works copy-paste.
 
 ---
 
