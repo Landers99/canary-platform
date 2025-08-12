@@ -5,92 +5,31 @@
 
 <!-- Badges (update the URLs to your repo/actions) -->
 
-[![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blue)](#)
+![CI](https://github.com/Landers99/canary-platform/actions/workflows/ci.yml/badge.svg)
+![TF Validate](https://github.com/Landers99/canary-platform/actions/workflows/terraform-plan.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
 ## Quickstart
 
-### Prerequisites
-
-* **.NET 8 SDK**
-* **Docker Desktop**
-* (Optional) **Terraform** & **AWS CLI** if you want to run `terraform plan` on Day 1
-
-### Clone & build
+**Prereqs:** Docker, .NET 8, Terraform 1.6+
 
 ```bash
+# Clone
 git clone https://github.com/Landers99/canary-platform.git
 cd canary-platform
-```
 
-### Run locally with Docker Compose
-
-We run Postgres + the control-plane API.
-
-> If your host is already using port 5432 (common), either **don’t publish** the DB port or publish it on another host port (e.g., 55432). Option A is default below.
-
-**`ops/docker-compose.yml` (excerpt)**
-
-```yaml
-services:
-  db:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: canary
-      POSTGRES_PASSWORD: canary
-      POSTGRES_DB: canary
-    healthcheck:
-      test: ["CMD-SHELL","pg_isready -U canary"]
-      interval: 5s
-      retries: 20
-    # ports: ["5432:5432"]  # <- leave commented to avoid conflicts (recommended)
-
-  control-plane:
-    build:
-      context: ..
-      dockerfile: apps/control-plane/Dockerfile
-    environment:
-      ASPNETCORE_URLS: http://0.0.0.0:8080
-      ConnectionStrings__Db: Host=db;Port=5432;Database=canary;Username=canary;Password=canary
-    depends_on:
-      db:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
-```
-
-**Bring it up**
-
-```bash
+# Run local stack
 docker compose -f ops/docker-compose.yml up --build -d
-```
-
-**Verify**
-
-```bash
 curl -s http://localhost:8080/healthz
-# -> {"status":"ok"}
 
-curl -i http://localhost:8080/flags/example
-# -> HTTP/1.1 501 Not Implemented   (stub proves routing)
-```
+# Build & test
+dotnet restore && dotnet build -c Release && dotnet test -c Release
 
-> If you **need** to connect to Postgres from your host: uncomment `ports` and use a free host port, e.g. `ports: ["55432:5432"]`, then `psql "postgres://canary:canary@localhost:55432/canary"`.
-
-### Local run without Docker (optional)
-
-```bash
-dotnet run --project apps/control-plane
-# Now listening on: http://localhost:5xxx
-curl -s http://localhost:5xxx/healthz
-```
-
-### Tests
-
-```bash
-dotnet test apps/control-plane.tests
+# Terraform (dev)
+cd infra/terraform/envs/dev
+terraform fmt -check && terraform init && terraform validate
 ```
 
 ---

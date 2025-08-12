@@ -2,3 +2,11 @@ bin/
 obj/
 .vscode/
 .DS_Store
+
+# Terraform cache/state/artifacts (keep the lock file!)
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.auto.tfvars
+*.tfplan
