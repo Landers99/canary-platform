@@ -143,3 +143,7 @@ dotnet add apps/control-plane.tests reference apps/control-plane
 * **Day 2:** ADR-000 (requirements, API, data model, scaling); diagram; CI badge.
 * **Day 3:** Minimal Postgres schema + `/flags/{key}` read path; add integration test.
 * **Day 4:** SDK v0.1 (.NET) with polling + local cache; plug into sample app.
+
+## Changelog
+
+* [Week 1](https://www.linkedin.com/posts/jonathan-l-smith_dotnet-featureflags-observability-activity-7361074014951264259-ipuz?utm_source=share&utm_medium=member_desktop&rcm=ACoAACOvxHQBRnMKyd0QWMmrAI7PPtOupDOLX4U)
